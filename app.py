@@ -25,13 +25,14 @@ def webhook():
 # ตรงนี้คือสมองของ bot
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    user_text = event.message.text        # รับข้อความจากคน
-    reply = "คุณพิมพ์ว่า: " + user_text  # คิดคำตอบ
+    user_text = event.message.text.strip()
+
+    if user_text == "ขอราคา" or user_text == "สวัสดี":
+        reply = "สวัสดีครับเราจะรีบแจ้งกลับโดยไวที่สุดครับ"
+    else:
+        reply = "สวัสดีครับเราจะรีบแจ้งกลับโดยไวที่สุดครับ"
 
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply)
     )
-
-if __name__ == "__main__":
-    app.run(port=5000)
